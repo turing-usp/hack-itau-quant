@@ -1,0 +1,1 @@
+from .quadratic_programming import QuadraticProgrammig
