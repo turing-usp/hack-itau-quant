@@ -40,7 +40,7 @@ class Markowitz:
 
         returns = np.arange(start_return, end_return, step_size)
 
-        risks = np.array([self._efficient_hyperbola(target_return)
+        risks = np.array([self._optimal_curve(target_return)
                           for target_return in returns])
 
         return (returns, risks)
@@ -71,7 +71,7 @@ class Markowitz:
 
         return x_min, z
 
-    def _efficient_hyperbola(self, target_return):
+    def _optimal_curve(self, target_return):
 
         hyperbola = self._C * target_return ** 2 - 2 * self._A * target_return + self._B
 
