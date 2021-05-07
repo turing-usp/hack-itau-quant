@@ -49,26 +49,25 @@ class Markowitz:
         W = np.linalg.inv(self._cov_matrix)
         e = np.ones((self._n_assets, 1))
 
-        We = W @ e
-        Wm = W @ self._expected_returns
+        We = np.dot(W, e)
+        Wm = np.dot(W, self._expected_returns)
 
         return e, We, Wm
 
     def _build_magic_numbers(self):
         e, We, Wm = self._build_useful_matrices()
 
-        A = e.T @ Wm
-        B = self._expected_returns.T @ We
-        C = e.T @ We
+        A = np.dot(e.T, Wm)
+        B = np.dot(self._expected_returns.T, Wm)
+        C = np.dot(e.T, We)
         D = B * C - A**2
 
         return A, B, C, D, We, Wm
 
     def _solve(self):
-        A, B, C, D, We, Wm = self._build_magic_numbers()
 
         x_min = self._We / self._C
-        z = Wm - self._A/self._C * self._We
+        z = self._Wm - (self._A/self._C) * self._We
 
         return x_min, z
 
