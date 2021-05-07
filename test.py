@@ -73,3 +73,5 @@ for r in tqdm(np.arange(0.0009, 0.0022, 0.00005)):
 plt.plot(np.array(risks), np.array(returns), label='Otimizador Hack - Solver')
 plt.legend()
 plt.savefig('test_solver.png')
+
+print(ef.max_loss(-0.06, 1))

@@ -59,6 +59,10 @@ class Markowitz:
 
         return True
 
+    def get_start_return(self):
+
+        return self._A / self._C
+
     def _build_useful_matrices(self):
         W = np.linalg.inv(self._cov_matrix)
         e = np.ones((self._n_assets, 1))

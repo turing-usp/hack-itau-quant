@@ -19,7 +19,7 @@ class EfficientFrontier:
 
     def plot_efficient_frontier(self, step_size, n_steps = 100):
 
-        returns, risks = self._solver. get_efficient_curve(step_size = step_size, n_steps = n_steps)
+        returns, risks = self._solver.get_efficient_curve(step_size = step_size, n_steps = n_steps)
 
         plt.plot(risks, returns)
 
@@ -30,3 +30,22 @@ class EfficientFrontier:
         plt.show()
 
         return (returns, risks)
+
+    def max_loss(self, loss, period, z_alpha = -1.645):
+
+        start_return = self._solver.get_start_return()
+
+        last_w = None
+        for r in np.arange(start_return, 1, 0.00005):
+
+            w = self.efficient_return(r).reshape(-1)
+            rp = np.dot(w.T, self._expected_returns) * period
+            sigma_p = np.sqrt(np.dot(w.T, np.dot(self._cov_matrix * np.sqrt(period), w)))
+            
+            z =  (loss - rp) / (sigma_p / np.sqrt(period))
+
+            is_alternative_hypotesis = z <= z_alpha
+            if is_alternative_hypotesis:
+                last_w = w
+            else:
+                return last_w
