@@ -1,4 +1,5 @@
-import numpy as np 
+import numpy as np
+
 
 class Markowitz:
 
@@ -6,6 +7,43 @@ class Markowitz:
         self._n_assets = len(expected_returns)
         self._cov_matrix = cov_matrix
         self._expected_returns = expected_returns.reshape((self._n_assets, 1))
+
+        A, B, C, D, We, Wm = self._build_magic_numbers()
+
+        self._A = A
+        self._B = B
+        self._C = C
+        self._D = D
+        self._We = We
+        self._Wm = Wm
+
+    def optimal_risk(self, target_risk):
+        x_min, z = self._solve()
+
+        return x_min + (z * target_risk / 2)
+
+    def optimal_return(self, target_return):
+
+        target_risk = 2 * (target_return - self._A /
+                           self._C) * self._C / self._D
+
+        if target_risk < 0:
+            raise ValueError("Target Return Not Valid!")
+
+        return self.optimal_risk(target_risk)
+
+    def get_efficient_curve(self, step_size, n_steps):
+
+        start_return = self._A / self._C
+
+        end_return = start_return + step_size * n_steps
+
+        returns = np.arange(start_return, end_return, step_size)
+
+        risks = np.array([self._efficient_hyperbola(target_return)
+                          for target_return in returns])
+
+        return (returns, risks)
 
     def _build_useful_matrices(self):
         W = np.linalg.inv(self._cov_matrix)
@@ -23,32 +61,21 @@ class Markowitz:
         B = self._expected_returns.T @ We
         C = e.T @ We
         D = B * C - A**2
-        
+
         return A, B, C, D, We, Wm
 
     def _solve(self):
         A, B, C, D, We, Wm = self._build_magic_numbers()
 
-        x_min = We / C
-        z = Wm - A/C * We
+        x_min = self._We / self._C
+        z = Wm - self._A/self._C * self._We
 
         return x_min, z
 
-    def optimal_risk(self, target_risk):
-        x_min, z = self._solve()
+    def _efficient_hyperbola(self, target_return):
 
-        return x_min +  (z * target_risk / 2)
+        hyperbola = self._C * target_return ** 2 - 2 * self._A * target_return + self._B
 
-    def optimal_return(self, target_return):
+        risk = np.sqrt((1 / self._D) * hyperbola)
 
-        A, B, C, D, _, _ = self._build_magic_numbers()
-
-        target_risk = 2 * (target_return - A / C) * C / D
-
-        if target_risk < 0:
-            raise ValueError("Target Return Not Valid!")
-
-        return self.optimal_risk(target_risk)
-
-
-
+        return float(risk)

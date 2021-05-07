@@ -16,3 +16,8 @@ class EfficientFrontier:
     def efficient_return(self, target_return):
         return self._solver.optimal_return(target_return)
 
+    def plot_efficient_frontier(self, step_size, n_steps = 100):
+
+        returns, risks = self._solver. get_efficient_curve(step_size = step_size, n_steps = n_steps)
+
+        return (returns, risks)
