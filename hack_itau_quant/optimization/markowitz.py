@@ -2,6 +2,8 @@ import numpy as np
 
 
 class Markowitz:
+    """Solver of Markowitz optimization problem
+    """
 
     def __init__(self, expected_returns, cov_matrix):
         self._n_assets = len(expected_returns)
@@ -18,6 +20,12 @@ class Markowitz:
         self._Wm = Wm
 
     def optimal_risk(self, target_risk):
+        """Calculate optimization solution given target risk
+        Args:
+            - target_risk (float): risk tolerance
+        Returns:
+            - (np.array) optimal weights
+        """
         x_min, z = self._solve()
 
         weights = x_min + (z * target_risk / 2)
@@ -25,6 +33,12 @@ class Markowitz:
         return weights
 
     def optimal_return(self, target_return):
+        """Calculate optimization solution given target return
+        Args:
+            - target_return (float): target return
+        Returns:
+            - (np.array) optimal weights
+        """
 
         target_risk = 2 * (target_return - self._A /
                            self._C) * self._C / self._D
@@ -32,6 +46,12 @@ class Markowitz:
         return self.optimal_risk(target_risk)
 
     def get_efficient_curve(self, n_points):
+        """Generates risk return curve with optimal weights solution
+        Args:
+            - n_points (int): number of points
+        Return:
+            - Tuple(np.array, np.array, np.array) returns, risks and optimal weights, respectively
+        """
 
         start_return = self._A / self._C
         end_return = self._expected_returns.max()
@@ -46,6 +66,8 @@ class Markowitz:
         return (returns, risks, weights)
 
     def get_start_return(self):
+        """Get initial return value of efficient curve
+        """
 
         return self._A / self._C
 
