@@ -8,6 +8,9 @@ from plotly.subplots import make_subplots
 
 
 class EfficientFrontier:
+    """Create efficient frontier given covariance matrix and 
+    expected returns for a set os securities
+    """
 
     def __init__(self, expected_returns: np.array, cov_matrix: np.array):
         self._expected_returns = expected_returns
@@ -17,12 +20,31 @@ class EfficientFrontier:
             cov_matrix=self._cov_matrix.to_numpy())
 
     def efficient_risk(self, target_risk):
+        """Calculates optimal weights given target_risk
+        Args:
+            - target_risk: (float) risk tolerance
+        Return:
+            - (np.array) with the weight for each security
+        """
         return self._solver.optimal_risk(target_risk)
 
     def efficient_return(self, target_return):
+        """Calculates optimal weights given target_return. 
+        Args:
+            - target_return: (float) return target
+        Return:
+            - (np.array) with the weight for each security
+        """
         return self._solver.optimal_return(target_return)
 
     def max_loss(self, loss, period, z_alpha=-1.645):
+        """Generate portfolio that has a certain amount of loss tolerance for a given period
+        Args:
+            - loss (float): negative number that represents the percentage accepted of loss
+            - period (int): amount of days of loss tolerance
+        Return:
+            - (np.array) portfolio weights 
+        """
 
         start_return = self._solver.get_start_return()
 
@@ -42,6 +64,10 @@ class EfficientFrontier:
         return None
 
     def plot_efficient_frontier(self, n_points=100):
+        """Plot efficient frontier with specific number of points
+        Args:
+            - n_points (int): number of points in the graphic
+        """
 
         returns, risks, weigths = self._solver.get_efficient_curve(n_points)
         self._plot(returns, risks, weigths)
