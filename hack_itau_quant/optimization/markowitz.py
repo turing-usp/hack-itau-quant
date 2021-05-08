@@ -37,18 +37,18 @@ class Markowitz:
 
         return self.optimal_risk(target_risk)
 
-    def get_efficient_curve(self, step_size, n_steps):
+    def get_efficient_curve(self, n_points):
 
         start_return = self._A / self._C
-
-        end_return = start_return + step_size * n_steps
+        end_return = self._expected_returns.max()
+        step_size = (end_return - start_return)/n_points
 
         returns = np.arange(start_return, end_return, step_size)
-
+        weights = np.array([self.optimal_return(target_return) for target_return in returns])
         risks = np.array([self._optimal_curve(target_return)
                           for target_return in returns])
 
-        return (returns, risks)
+        return (returns, risks, weights)
 
     @staticmethod
     def check_weights(weights):
