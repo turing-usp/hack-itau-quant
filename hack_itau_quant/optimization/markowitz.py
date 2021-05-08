@@ -22,18 +22,12 @@ class Markowitz:
 
         weights = x_min + (z * target_risk / 2)
 
-        if Markowitz.check_weights(weights):
-            return weights
-        else:
-            raise ValueError("Target Risk Does Not Converge")
+        return weights
 
     def optimal_return(self, target_return):
 
         target_risk = 2 * (target_return - self._A /
                            self._C) * self._C / self._D
-
-        if target_risk < 0:
-            raise ValueError("Target Return Not Valid!")
 
         return self.optimal_risk(target_risk)
 
@@ -45,19 +39,11 @@ class Markowitz:
 
         returns = np.arange(start_return, end_return, step_size)
         weights = np.array([self.optimal_return(target_return) for target_return in returns])
-        risks = np.array([self._optimal_curve(target_return)
-                          for target_return in returns])
+        weights = weights.squeeze()
+
+        risks = np.sqrt(np.array([np.dot(w.T, np.dot(self._cov_matrix, w)) for w in weights]))
 
         return (returns, risks, weights)
-
-    @staticmethod
-    def check_weights(weights):
-
-        for w in weights:
-            if w < 0:
-                return False
-
-        return True
 
     def get_start_return(self):
 

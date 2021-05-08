@@ -32,24 +32,11 @@ print("EFFICIENT RISK: ", w2)
 
 # e = ef_opt(expected_returns, cov_matrix)
 
-# try:
-#     print("EFFICIENT RETURN: ", e.efficient_return(target_return))  
-# except:
-#     pass
-
-# try:
-#     print("EFFICIENT RISK: ", e.efficient_risk(target_risk**2))
-# except:
-#     pass
-
 # fig, ax = plt.subplots()
 # plotting.plot_efficient_frontier(e, ax=ax, show_assets=False)
 # plt.savefig('pyopt.png')
 
-returns, risks = ef.plot_efficient_frontier(0.00005, 30)
-plt.plot(risks, returns, label='Otimizador Hack - Hyperbola')
-plt.legend()
-plt.savefig('test_hyperbola.png')
+ef.plot_efficient_frontier()
 
 
 
@@ -70,8 +57,8 @@ for r in tqdm(np.arange(0.0009, 0.0022, 0.00005)):
         pass
 
 
-plt.plot(np.array(risks), np.array(returns), label='Otimizador Hack - Solver')
-plt.legend()
-plt.savefig('test_solver.png')
+# plt.plot(np.array(risks), np.array(returns), label='Otimizador Hack - Solver')
+# plt.legend()
+# plt.savefig('test_solver.png')
 
-print(ef.max_loss(-0.06, 1))
+# print(ef.max_loss(-0.06, 1))
