@@ -35,7 +35,6 @@ class EfficientFrontier:
 
         start_return = self._solver.get_start_return()
 
-        last_w = None
         for r in np.arange(start_return, 1, 0.00005):
 
             w = self.efficient_return(r).reshape(-1)
@@ -46,6 +45,8 @@ class EfficientFrontier:
 
             is_alternative_hypotesis = z <= z_alpha
             if is_alternative_hypotesis:
-                last_w = w
-            else:
-                return last_w
+                return w
+
+        return None
+
+        

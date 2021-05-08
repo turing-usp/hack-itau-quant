@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
-from pypfopt import EfficientFrontier as ef_opt
-from pypfopt import plotting
+# from pypfopt import EfficientFrontier as ef_opt
+# from pypfopt import plotting
 
 tickers = ['BPAC11.SA', 'ITUB4.SA', 'OIBR3.SA', 'PETR4.SA']
 
@@ -30,17 +30,17 @@ print("EFFICIENT RISK: ", w2)
 
 
 
-e = ef_opt(expected_returns, cov_matrix)
+# e = ef_opt(expected_returns, cov_matrix)
 
-try:
-    print("EFFICIENT RETURN: ", e.efficient_return(target_return))  
-except:
-    pass
+# try:
+#     print("EFFICIENT RETURN: ", e.efficient_return(target_return))  
+# except:
+#     pass
 
-try:
-    print("EFFICIENT RISK: ", e.efficient_risk(target_risk**2))
-except:
-    pass
+# try:
+#     print("EFFICIENT RISK: ", e.efficient_risk(target_risk**2))
+# except:
+#     pass
 
 # fig, ax = plt.subplots()
 # plotting.plot_efficient_frontier(e, ax=ax, show_assets=False)
