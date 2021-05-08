@@ -17,3 +17,4 @@ ruamel.yaml.clib==0.2.2
 six==1.16.0
 toml==0.10.2
 xbbg==0.7.5
+seaborn==0.11.1
