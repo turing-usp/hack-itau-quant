@@ -15,14 +15,21 @@ class BloombergData:
         df_IMAB.index = pd.to_datetime(df_IMAB.index)
         df_IRFM.index = pd.to_datetime(df_IRFM.index)
 
-        df_IMAB_indice = blp.bdh('BZRFIMAB index', 'PX_LAST', '2017-12-30', '2019-05-19')
+        df_IBOV = df_IBOV.pct_change().dropna()
+        df_SP = df_SP.pct_change().dropna()
+        df_IMAB = df_IMAB.pct_change().dropna()
+        df_IRFM = df_IRFM.pct_change().dropna()
+
+        df_IMAB_indice = blp.bdh('BZRFIMAB index', 'PX_LAST', '2017-12-30', '2019-05-20')
         df_IMAB_indice.index = pd.to_datetime(df_IMAB_indice.index)
         df_IMAB_indice = df_IMAB_indice.rename(columns ={'BZRFIMAB index' : 'IMAB11 BZ Equity'})
+        df_IMAB_indice = df_IMAB_indice.pct_change().dropna()
         df_IMAB = pd.concat([df_IMAB_indice/1000, df_IMAB])
 
-        df_IRFM_indice = blp.bdh('BZRFIRFM Index', 'PX_LAST', '2017-12-30', '2019-09-22')
+        df_IRFM_indice = blp.bdh('BZRFIRFM Index', 'PX_LAST', '2017-12-30', '2019-09-23')
         df_IRFM_indice.index = pd.to_datetime(df_IRFM_indice.index)
         df_IRFM_indice = df_IRFM_indice.rename(columns ={'BZRFIRFM Index' : 'IRFM11 BZ Equity'})
+        df_IRFM_indice = df_IRFM_indice.pct_change().dropna()
         df_IRFM = pd.concat([df_IRFM_indice/1000, df_IRFM])
 
         df = pd.concat([df_IBOV, df_SP, df_IMAB, df_IRFM], axis = 1).dropna()
