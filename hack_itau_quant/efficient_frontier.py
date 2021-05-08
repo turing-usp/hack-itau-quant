@@ -67,48 +67,48 @@ class EfficientFrontier:
                             hovertemplate="Volatilities: %{x:,.2f}<br>"+
                             "Returns: %{y:.5f}<br>"+
                             "Sharpe: %{text:.5f}<br>"+
-                            "BOVV11: %{customdata[0]}%<br>"+
-                            "SPXI11: %{customdata[1]}%<br>"+
-                            "IMAB11: %{customdata[2]}%<br>"+
-                            "IRFM11: %{customdata[3]}%<br>",
+                            "BOVV11 BZ Equity: %{customdata[0]}%<br>"+
+                            "SPXI11 BZ Equity: %{customdata[1]}%<br>"+
+                            "IMAB11 BZ Equity: %{customdata[2]}%<br>"+
+                            "IRFM11 BZ Equity: %{customdata[3]}%<br>",
                             mode = ' markers + lines',
                             showlegend = False)
 
         Max_Sharpe = go.Scatter(x = max_sharpe.Volatilies,
                             y = max_sharpe.Returns,
                             text=df[df['Volatilies']  == float(max_sharpe.Volatilies)]['Sharpe'],
-                            customdata = np.stack((df[df['Volatilies']  == float(max_sharpe.Volatilies)]['BOVV11'], 
-                                                df[df['Volatilies']  == float(max_sharpe.Volatilies)]['SPXI11'], 
-                                                df[df['Volatilies']  == float(max_sharpe.Volatilies)]['IMAB11'], 
-                                                df[df['Volatilies']  == float(max_sharpe.Volatilies)]['IRFM11']), 
+                            customdata = np.stack((df[df['Volatilies']  == float(max_sharpe.Volatilies)]['BOVV11 BZ Equity'], 
+                                                df[df['Volatilies']  == float(max_sharpe.Volatilies)]['SPXI11 BZ Equity'], 
+                                                df[df['Volatilies']  == float(max_sharpe.Volatilies)]['IMAB11 BZ Equity'], 
+                                                df[df['Volatilies']  == float(max_sharpe.Volatilies)]['IRFM11 BZ Equity']), 
                                                 axis = -1),
                             hovertemplate=
                             "Volatilities: %{x:,.2f}<br>"+
                             "Returns: %{y:.5f}<br>"+
                             "Sharpe: %{text:.4f}<br>"+
-                            "BOVV11: %{customdata[0]}%<br>"+
-                            "SPXI11: %{customdata[1]}%<br>"+
-                            "IMAB11: %{customdata[2]}%<br>"+
-                            "IRFM11: %{customdata[3]}%<br>",
+                            "BOVV11 BZ Equity: %{customdata[0]}%<br>"+
+                            "SPXI11 BZ Equity: %{customdata[1]}%<br>"+
+                            "IMAB11 BZ Equity: %{customdata[2]}%<br>"+
+                            "IRFM11 BZ Equity: %{customdata[3]}%<br>",
                             mode = ' markers + lines',
                             name = 'Maximum Sharpe')
 
         Min_Vol = go.Scatter(x = min_vol.Volatilies,
                             y = min_vol.Returns,
                             text=df[df['Volatilies']  == float(min_vol.Volatilies)]['Sharpe'],
-                            customdata = np.stack((df[df['Volatilies']  == float(min_vol.Volatilies)]['BOVV11'], 
-                                                df[df['Volatilies']  == float(min_vol.Volatilies)]['SPXI11'], 
-                                                df[df['Volatilies']  == float(min_vol.Volatilies)]['IMAB11'], 
-                                                df[df['Volatilies']  == float(min_vol.Volatilies)]['IRFM11']), 
+                            customdata = np.stack((df[df['Volatilies']  == float(min_vol.Volatilies)]['BOVV11 BZ Equity'], 
+                                                df[df['Volatilies']  == float(min_vol.Volatilies)]['SPXI11 BZ Equity'], 
+                                                df[df['Volatilies']  == float(min_vol.Volatilies)]['IMAB11 BZ Equity'], 
+                                                df[df['Volatilies']  == float(min_vol.Volatilies)]['IRFM11 BZ Equity']), 
                                                 axis = -1),
                             hovertemplate=
                             "Volatilities: %{x:,.2f}<br>"+
                             "Returns: %{y:.5f}<br>"+
                             "Sharpe: %{text:.4f}<br>"+
-                            "BOVV11: %{customdata[0]}%<br>"+
-                            "SPXI11: %{customdata[1]}%<br>"+
-                            "IMAB11: %{customdata[2]}%<br>"+
-                            "IRFM11: %{customdata[3]}%<br>",
+                            "BOVV11 BZ Equity: %{customdata[0]}%<br>"+
+                            "SPXI11 BZ Equity: %{customdata[1]}%<br>"+
+                            "IMAB11 BZ Equity: %{customdata[2]}%<br>"+
+                            "IRFM11 BZ Equity: %{customdata[3]}%<br>",
                             mode = ' markers + lines',
                             name = 'Minimal Volatility')
         

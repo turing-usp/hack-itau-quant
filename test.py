@@ -2,7 +2,7 @@ from hack_itau_quant import EfficientFrontier, BloombergData
 import matplotlib.pyplot as plt
 import numpy as np
 
-close_prices = BloombergData.get()
+close_prices = BloombergData.get_hack_data()
 
 returns = close_prices.pct_change()[1:]
 
