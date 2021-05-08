@@ -1,4 +1,16 @@
 # Hackathon Itaú Asset 
+
+## Usabilidade 
+Clone este repositório e use um ambiente virtual conforme descrito abaixo.
+```bash
+$ cd hack_itau_quant
+$ virtualenv venv
+$ source ./venv/bin/activate
+$ pip install -r requirements.txt
+```
+
+Com o ambiente virtual python contendo as dependencia basta executar o python notebook com as respostas.
+
 ## Construção de um robô consultor 
 
 Este repositório foi dedicado para as entregas e códigos, desenvolvidos pela equipe 
