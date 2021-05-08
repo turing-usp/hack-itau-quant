@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from .optimization import Markowitz
 import pandas as pd
 

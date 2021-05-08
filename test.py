@@ -1,15 +1,10 @@
 from hack_itau_quant import EfficientFrontier
-import yfinance as yf
 import matplotlib.pyplot as plt
 import numpy as np
-from tqdm import tqdm
-
-# from pypfopt import EfficientFrontier as ef_opt
-# from pypfopt import plotting
 
 tickers = ['BPAC11.SA', 'ITUB4.SA', 'OIBR3.SA', 'PETR4.SA']
 
-close_prices = yf.download(tickers, start='2017-01-01', end='2021-01-01')['Close']
+#close_prices = yf.download(tickers, start='2017-01-01', end='2021-01-01')['Close']
 
 returns = close_prices.pct_change()[1:]
 
