@@ -57,14 +57,17 @@ returns, risks = [], []
 
 for r in tqdm(np.arange(0.0009, 0.0022, 0.00005)):
 
-    w = ef.efficient_return(r).reshape(4, 1)
+    try:
+        w = ef.efficient_return(r).reshape(4, 1)
 
-    rs = np.dot(w.T, expected_returns)
+        rs = np.dot(w.T, expected_returns)
 
-    sigma = np.sqrt(np.dot(w.T, np.dot(cov_matrix, w)))
+        sigma = np.sqrt(np.dot(w.T, np.dot(cov_matrix, w)))
 
-    returns.append(float(rs))
-    risks.append(float(sigma))
+        returns.append(float(rs))
+        risks.append(float(sigma))
+    except:
+        pass
 
 
 plt.plot(np.array(risks), np.array(returns), label='Otimizador Hack - Solver')

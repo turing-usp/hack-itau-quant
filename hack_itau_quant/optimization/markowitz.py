@@ -20,7 +20,12 @@ class Markowitz:
     def optimal_risk(self, target_risk):
         x_min, z = self._solve()
 
-        return x_min + (z * target_risk / 2)
+        weights = x_min + (z * target_risk / 2)
+
+        if self._check_weights(weights):
+            return weights
+        else:
+            raise ValueError("Target Risk Does Not Converge")
 
     def optimal_return(self, target_return):
 
@@ -44,6 +49,15 @@ class Markowitz:
                           for target_return in returns])
 
         return (returns, risks)
+
+    def _check_weights(self, weights):
+
+        for w in weights:
+
+            if w < 0:
+                return False
+
+        return True
 
     def _build_useful_matrices(self):
         W = np.linalg.inv(self._cov_matrix)
