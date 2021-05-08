@@ -1,10 +1,8 @@
-from hack_itau_quant import EfficientFrontier
+from hack_itau_quant import EfficientFrontier, BloombergData
 import matplotlib.pyplot as plt
 import numpy as np
 
-tickers = ['BPAC11.SA', 'ITUB4.SA', 'OIBR3.SA', 'PETR4.SA']
-
-#close_prices = yf.download(tickers, start='2017-01-01', end='2021-01-01')['Close']
+close_prices = BloombergData.get()
 
 returns = close_prices.pct_change()[1:]
 
