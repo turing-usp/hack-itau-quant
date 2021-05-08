@@ -22,7 +22,7 @@ class Markowitz:
 
         weights = x_min + (z * target_risk / 2)
 
-        if self._check_weights(weights):
+        if Markowitz.check_weights(weights):
             return weights
         else:
             raise ValueError("Target Risk Does Not Converge")
@@ -50,10 +50,10 @@ class Markowitz:
 
         return (returns, risks)
 
-    def _check_weights(self, weights):
+    @staticmethod
+    def check_weights(weights):
 
         for w in weights:
-
             if w < 0:
                 return False
 
