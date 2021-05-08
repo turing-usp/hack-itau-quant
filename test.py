@@ -2,7 +2,7 @@ from hack_itau_quant import EfficientFrontier
 import yfinance as yf
 import matplotlib.pyplot as plt
 import numpy as np
-#from tqdm import tqdm
+from tqdm import tqdm
 
 # from pypfopt import EfficientFrontier as ef_opt
 # from pypfopt import plotting
@@ -45,46 +45,33 @@ print("EFFICIENT RISK: ", w2)
 # fig, ax = plt.subplots()
 # plotting.plot_efficient_frontier(e, ax=ax, show_assets=False)
 # plt.savefig('pyopt.png')
-def evaluate(returns, risks, weights):
-    for i in range(len(risks)):
-        for w in weights[i]:
-            if w < 0 :
-                print("Deu ruim:")
-                print("PESOS: ", weights[i])
-                print("RISCO: ", risks[i])
-                print("RETORNO: ", returns[i])
-                print("\n")
-            continue
 
-returns, risks, weights = ef.plot_efficient_frontier(n_points = 100)
-print("EXPECTED RETURNS: ", expected_returns)
-evaluate(returns, risks, weights)
-
-# plt.plot(risks, returns, label='Otimizador Hack - Hyperbola')
-# plt.legend()
-# plt.savefig('test_hyperbola.png')
+returns, risks = ef.plot_efficient_frontier(0.00005, 30)
+plt.plot(risks, returns, label='Otimizador Hack - Hyperbola')
+plt.legend()
+plt.savefig('test_hyperbola.png')
 
 
 
-# returns, risks = [], []
+returns, risks = [], []
 
-# for r in tqdm(np.arange(0.0009, 0.0022, 0.00005)):
+for r in tqdm(np.arange(0.0009, 0.0022, 0.00005)):
 
-#     try:
-#         w = ef.efficient_return(r).reshape(4, 1)
+    try:
+        w = ef.efficient_return(r).reshape(4, 1)
 
-#         rs = np.dot(w.T, expected_returns)
+        rs = np.dot(w.T, expected_returns)
 
-#         sigma = np.sqrt(np.dot(w.T, np.dot(cov_matrix, w)))
+        sigma = np.sqrt(np.dot(w.T, np.dot(cov_matrix, w)))
 
-#         returns.append(float(rs))
-#         risks.append(float(sigma))
-#     except:
-#         pass
+        returns.append(float(rs))
+        risks.append(float(sigma))
+    except:
+        pass
 
 
-# plt.plot(np.array(risks), np.array(returns), label='Otimizador Hack - Solver')
-# plt.legend()
-# plt.savefig('test_solver.png')
+plt.plot(np.array(risks), np.array(returns), label='Otimizador Hack - Solver')
+plt.legend()
+plt.savefig('test_solver.png')
 
-# print(ef.max_loss(-0.06, 1))
+print(ef.max_loss(-0.06, 1))

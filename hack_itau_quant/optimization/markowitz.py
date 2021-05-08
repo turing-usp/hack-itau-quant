@@ -22,7 +22,10 @@ class Markowitz:
 
         weights = x_min + (z * target_risk / 2)
 
-        return weights
+        if Markowitz.check_weights(weights):
+            return weights
+        else:
+            raise ValueError("Target Risk Does Not Converge")
 
     def optimal_return(self, target_return):
 
@@ -34,6 +37,19 @@ class Markowitz:
 
         return self.optimal_risk(target_risk)
 
+    def get_efficient_curve(self, step_size, n_steps):
+
+        start_return = self._A / self._C
+
+        end_return = start_return + step_size * n_steps
+
+        returns = np.arange(start_return, end_return, step_size)
+
+        risks = np.array([self._optimal_curve(target_return)
+                          for target_return in returns])
+
+        return (returns, risks)
+
     @staticmethod
     def check_weights(weights):
 
@@ -43,20 +59,9 @@ class Markowitz:
 
         return True
 
-    def get_efficient_curve(self, n_points):
+    def get_start_return(self):
 
-        start_risk = 1 / np.sqrt(self._C)
-        end_risk = self._optimal_curve(self._expected_returns.max())
-        step_size = (start_risk - end_risk) / n_points
-
-        risks = np.arange(start_risk, end_risk, step_size)
-        weights = np.array([self.optimal_risk(target_risk)
-                          for target_risk in risks])
-        weights = weights.squeeze()
-        
-        returns = np.array([np.dot(w, self._expected_returns) for w in weights])
-
-        return (returns, risks, weights)
+        return self._A / self._C
 
     def _build_useful_matrices(self):
         W = np.linalg.inv(self._cov_matrix)
@@ -91,9 +96,3 @@ class Markowitz:
         risk = np.sqrt((1 / self._D) * hyperbola)
 
         return float(risk)
-
-    def get_return_thresholds(self):
-        return self._A / self._C, self._expected_returns.max()
-
-    def _get_risk(self, weights):
-            return np.sqrt(np.dot(weights.T, np.dot(self._cov_matrix, weights)))

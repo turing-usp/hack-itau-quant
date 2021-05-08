@@ -18,10 +18,11 @@ class EfficientFrontier:
     def efficient_return(self, target_return):
         return self._solver.optimal_return(target_return)
 
-    def plot_efficient_frontier(self, n_points=100):
+    def plot_efficient_frontier(self, step_size, n_steps=100):
 
-        returns, risks, weigths = self._solver.get_efficient_curve(n_points)
-        
+        returns, risks = self._solver.get_efficient_curve(
+            step_size=step_size, n_steps=n_steps)
+
         plt.plot(risks, returns)
 
         plt.xlabel('Volatilities')
@@ -30,7 +31,7 @@ class EfficientFrontier:
 
         plt.show()
 
-        return (returns, risks, weigths)
+        return (returns, risks)
 
     def max_loss(self, loss, period, z_alpha=-1.645):
 
