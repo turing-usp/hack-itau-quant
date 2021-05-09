@@ -18,3 +18,7 @@ six==1.16.0
 toml==0.10.2
 xbbg==0.7.5
 seaborn==0.11.1
+scipy==1.6.3
+scikit-learn==0.24.2
+matplotlib==3.4.2
+

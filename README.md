@@ -27,8 +27,8 @@ investimento (dados tirados através da utilização da API do Bloomberg).
 
 ## Conteúdo do repositório 
 
-Este repositório contém 3 arquivos .py e um notebook 
-que ilustra a utilidade dos códigos modulares desenvolvidos. É neste 
+Este repositório contém diversos arquivos .py e 3 notebooks
+que ilustram a utilidade dos códigos modulares desenvolvidos. É neste 
 notebook que encontramos a resolução das partes dos desafios propostos. Todos resolvidos 
 com as funções dos códigos modulares.
 
@@ -36,11 +36,20 @@ com as funções dos códigos modulares.
 
 * ```optimization/markowitz.py```: arquivo que introduz a classe ```Markowitz``` e as 
   funções que servirão como base para as aplicações
+
 * ```efficient_frontier.py```: arquivo que introduz a classe ```EfficientFrontier```, que utiliza
   as criações do arquivo ```markowitz.py``` para construir a Fronteira Eficiente 
   e as respostas esperadas das aplicações. 
-* ```resolution.ipynb```: notebook o qual contém, de forma mais clara 
+
+* ```Resolution.ipynb```: notebook o qual contém, de forma mais clara 
 e consisa, a resolução de cada parte do desafio, assim como as aplicações desejadas.
+
+* ```Denosing.ipynb```: notebook que apresenta o módulo de denosing, comparando a utilização de um Markowitz com diferentes técnicas de denoising.
+
+* ```Backtesting.ipynb```: notebook que realiza o backtesting de diferentes estratégias de otimização, rebalanceamndo uma carteira a cada 20 dias.
+
+
+
 * ```requirements.txt```: arquivo de texto que contém as bibliotecas e dependências para a utilização dos códigos. 
 
 ## Referências 
