@@ -37,7 +37,7 @@ class Denoising:
         
         n_facts = self.e_val.shape[0] - np.diag(self.e_val)[::-1].searchsorted(max_eval)
         
-        corr_matrix = self._filter_shrinkage(self.e_val, self.e_vec, n_facts, alpha = self._alpha)
+        corr_matrix = self._filter_shrinkage(n_facts)
         
         return corr_matrix
         
@@ -56,7 +56,7 @@ class Denoising:
 
         return corr
     
-    def _filter_shrinkage(self, eVal, eVec, nFacts, alpha = 0):
+    def _filter_shrinkage(self, n_facts):
 
         e_val_left  = self.e_val[:n_facts, :n_facts]
         e_vec_left = self.e_vec[:, :n_facts] 
@@ -65,7 +65,7 @@ class Denoising:
         corr_left = np.dot(e_vec_left, e_val_left).dot(e_vec_left.T)
         corr_right = np.dot(e_vec_right, e_val_right).dot(e_vec_right.T)
         
-        corr_shrinkage = corr_left + alpha * corr_right + (1 - alpha) * np.diag(np.diag(corr_right))
+        corr_shrinkage = corr_left + self._alpha * corr_right + (1 - self._alpha) * np.diag(np.diag(corr_right))
         
         return corr_shrinkage
 
