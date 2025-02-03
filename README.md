@@ -1,5 +1,14 @@
 # Hackathon Itaú Asset 
 
+## Feedback do Hackathon
+1. ✅ Entregou pacote python conforme solicitado.
+2. Não documentou o algoritmo apresentado ❌, mas documentou parcialmente o código.
+3. A solução apresentada é incorreta (viola os vínculos) ❌.
+4. A FE é calculada, mas o gráfico é específico do exemplo e não um método genérico.
+5. ✅ Entregou corretamente estimação da matriz de covariância e fronteira eficiente do exemplo solicitado.
+6. Entregou a recomendação de portfólio, mas há um erro ao usar a raiz quadrada do período da raiz quadrada da covariância (raiz quarta no fim) ❌.
+
+
 ## Usabilidade 
 Clone este repositório e use um ambiente virtual conforme descrito abaixo.
 ```bash
